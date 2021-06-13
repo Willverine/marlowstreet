@@ -1,0 +1,47 @@
+type Season @model {
+  id: ID!
+  name: String!
+	startDate: AWSDateTime!
+	endDate: AWSDateTime!
+	weeks: [Week] @connection(keyName: "bySeason", fields: ["id"])
+}
+	
+type Week @model @key(name: "bySeason", fields: ["seasonID"]) {
+  id: ID!
+	day: AWSDateTime!
+	games: [Game] @connection(keyName: "byWeek", fields: ["id"])
+  seasonID: ID!
+  season: Season @connection(fields: ["seasonID"])
+}
+
+type Game @model @key(name: "byWeek", fields: ["weekID"]) {
+  id: ID!
+  time: AWSDateTime!
+  team1: Team! @connection
+  team2: Team! @connection
+  team1Score: Int!
+  team2Score: Int!
+  team1SpiritScore: Int!
+  team2SpiritScore: Int!
+  team1mvp: Player @connection
+  team2mvp: Player @connection
+  weekID: ID!
+  week: Week @connection(fields: ["weekID"])
+}
+
+type Team @model {
+  id: ID!
+  captain: Player @connection
+  colour: String!
+  name: String!
+  players: Int!
+}
+
+type Player @model {
+  id: ID!
+	firstName: String!
+	lastName: String!
+	dob: AWSDateTime!
+	mobileNumber: String!
+	email: String!
+}
