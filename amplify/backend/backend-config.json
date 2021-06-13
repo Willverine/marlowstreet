@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "marlowstreet257fc4bd": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
