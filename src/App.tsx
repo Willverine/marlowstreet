@@ -4,7 +4,7 @@ import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 import { CreateGameMutation, CreateGameMutationVariables, CreatePlayerMutation, CreatePlayerMutationVariables, CreateSeasonMutation, CreateSeasonMutationVariables, ListGamesQuery, ListPlayersQuery, ListSeasonsQuery, ListTeamsQuery, ListWeeksQuery } from "./API";
 import { listGames, listPlayers, listSeasons, listTeams, listWeeks } from "./graphql/queries";
 import { callGraphQL } from './graphql/callGraphQl';
-import { mapListSeasonsQuery } from './models/seasons';
+import { mapListSeasonsQuery } from './models/season';
 import { createGame, createPlayer, createSeason } from './graphql/mutations';
 import { Game, Player, Season, Team, Week } from './models';
 import { mapListWeeksQuery } from './models/week';
@@ -63,7 +63,7 @@ function App() {
     const apiData = await callGraphQL<ListGamesQuery>(listGames);
 
     const games = mapListGamesQuery(apiData);
-    setGames(games);
+    // setGames(games);
   }
 
   const fetchPlayers = async () => {

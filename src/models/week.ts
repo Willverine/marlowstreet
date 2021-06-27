@@ -7,5 +7,7 @@ export function mapListWeeksQuery(listWeeksQuery: GraphQLResult<ListWeeksQuery>)
     id: Week?.id,
     createdAt: Week?.createdAt,
     updatedAt: Week?.updatedAt,
+    day: Week?.day,
+    seasonID: Week?.seasonID,
   } as Week)) || []
 }
