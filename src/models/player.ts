@@ -1,4 +1,4 @@
-import { ListPlayersQuery } from "../API";
+import { GetPlayerQuery, ListPlayersQuery } from "../API";
 import { GraphQLResult } from "@aws-amplify/api";
 import { Player } from ".";
 
@@ -13,4 +13,24 @@ export function mapListPlayersQuery(listPlayersQuery: GraphQLResult<ListPlayersQ
     createdAt: Player?.createdAt,
     updatedAt: Player?.updatedAt,
   } as Player)) || []
+}
+
+
+export function mapGetPlayerQuery(getPlayerQuery: GraphQLResult<GetPlayerQuery>): Player | undefined {
+  const player = getPlayerQuery.data?.getPlayer;
+
+  if (!player) {
+    return;
+  }
+
+  return {
+    id: player.id,
+    firstName: player.firstName,
+    lastName: player.lastName,
+    dob: player.dob,
+    mobileNumber: player.mobileNumber,
+    email: player.email,
+    createdAt: player.createdAt,
+    updatedAt: player.updatedAt,
+  };
 }

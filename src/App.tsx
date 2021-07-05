@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 import { CreateGameMutation, CreateGameMutationVariables, CreatePlayerMutation, CreatePlayerMutationVariables, CreateSeasonMutation, CreateSeasonMutationVariables, ListGamesQuery, ListPlayersQuery, ListSeasonsQuery, ListTeamsQuery, ListWeeksQuery } from "./API";
@@ -11,6 +12,9 @@ import { mapListWeeksQuery } from './models/week';
 import { mapListGamesQuery } from './models/game';
 import { mapListPlayersQuery } from './models/player';
 import { mapListTeamsQuery } from './models/team';
+import { Home } from './views/Home';
+import { Team as TeamView } from './views/Team';
+import { Player as PlayerView } from './views/Player';
 
 function App() {
   const [seasons, setSeasons] = useState<Season[]>();
@@ -106,50 +110,61 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header>
-        <h1>Seasons list:</h1>
-        {seasons?.map((season) => season.startDate + ", ")}
-        <h1>weeks list:</h1>
-        {weeks?.map((a) => a.id)}
-        <h1>teams list:</h1>
-        {teams?.map((a) => a.id)}
-        <h1>games list:</h1>
-        {games?.map((a) => a.id)}
-        <h1>players list:</h1>
-        {players?.map((a) => a.id)}
-        <div style={{ width: "100%", backgroundColor: "red" }}>
-          --------------------
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <input type="text" ref={seasonName}></input>
-          <button onClick={createSeasonMutation}>
-            Click to create new season
-          </button>
-          <input type="text" ref={weekName}></input>
-          <button onClick={createSeasonMutation}>
-            Click to create new week
-          </button>
-          <input type="text" ref={teamName}></input>
-          <button onClick={createSeasonMutation}>
-            Click to create new team
-          </button>
-          <input type="text" ref={gameName}></input>
-          <button onClick={createGameMutation}>Click to create new game</button>
-          <input type="text" ref={playerName}></input>
-          <button onClick={createPlayerMutation}>
-            Click to create new player
-          </button>
-        </div>
-      </header>
-      <AmplifySignOut style={{backgroundColor: 'blue'}} />
-    </div>
+    <Router>
+      <div className="App">
+        <header>
+          <h1>Seasons list:</h1>
+          {seasons?.map((season) => season.startDate + ", ")}
+          <h1>weeks list:</h1>
+          {weeks?.map((a) => a.id)}
+          <h1>teams list:</h1>
+          {teams?.map((a) => a.id)}
+          <h1>games list:</h1>
+          {games?.map((a) => a.id)}
+          <h1>players list:</h1>
+          {players?.map((a) => a.id + ", ")}
+          <div style={{ width: "100%", backgroundColor: "red" }}>
+            --------------------
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <input type="text" ref={seasonName}></input>
+            <button onClick={createSeasonMutation}>
+              Click to create new season
+            </button>
+            <input type="text" ref={weekName}></input>
+            <button onClick={createSeasonMutation}>
+              Click to create new week
+            </button>
+            <input type="text" ref={teamName}></input>
+            <button onClick={createSeasonMutation}>
+              Click to create new team
+            </button>
+            <input type="text" ref={gameName}></input>
+            <button onClick={createGameMutation}>
+              Click to create new game
+            </button>
+            <input type="text" ref={playerName}></input>
+            <button onClick={createPlayerMutation}>
+              Click to create new player
+            </button>
+          </div>
+        </header>
+        <AmplifySignOut style={{ backgroundColor: "blue" }} />
+        <Link to="/team/1">First team</Link>
+        <Link to="/player/8d0ccd7b-64ac-4279-9f5d-d3ee4511bcab">
+          First player
+        </Link>
+      </div>
+      <Route path="/" exact component={Home} />
+      <Route path="/team/:id" component={TeamView} />
+      <Route path="/player/:id" component={PlayerView} />
+    </Router>
   );
 }
 
