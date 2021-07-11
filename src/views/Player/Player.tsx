@@ -7,8 +7,9 @@ import { getPlayer } from '../../graphql/queries';
 import { mapGetPlayerQuery } from '../../models/player';
 import { Player as PlayerModel } from '../../models';
 import {
-  Title, Player as PlayerDiv, Id, Details,
+  Title, Player as PlayerDiv,
 } from './Player.styles';
+import { PlayerDetails } from './Details';
 
 type RouteParams = {
   id: string | undefined;
@@ -49,28 +50,7 @@ export const Player = ({ match }: RouteComponentProps<RouteParams>) => {
     <PlayerDiv>
       <Title>Player Page</Title>
       {isCurrentUser && <p>This is your user</p>}
-      <Id>
-        ID:
-        {' '}
-        {player.id}
-      </Id>
-      <Details>
-        Name:
-        {' '}
-        {player.firstName}
-        {' '}
-        {player.lastName}
-        <Details>
-          Email:
-          {' '}
-          {player.email}
-        </Details>
-      </Details>
-      <Details>
-        Date of Birth:
-        {' '}
-        {new Date(player.dob).toDateString()}
-      </Details>
+      <PlayerDetails player={player} />
     </PlayerDiv>
   );
 };
