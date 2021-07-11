@@ -5,7 +5,6 @@ import { getPlayer } from "../graphql/queries";
 import { mapGetPlayerQuery } from "../models/player";
 import { Player as PlayerModel } from "../models";
 import { RouteComponentProps } from "react-router-dom";
-import { API } from "@aws-amplify/api";
 
 type routeParams = {
   id: string | undefined;
@@ -17,29 +16,17 @@ export const Player = ({ match }: RouteComponentProps<routeParams>) => {
 
   useEffect(() => {
     async function fetchData() {
-      console.log(id);
 
-      // const apiData = await callGraphQL<GetPlayerQuery>(getPlayer, {
-      //   variables: {
-      //     variables: {
-      //       id: "8d0ccd7b-64ac-4279-9f5d-d3ee4511bcab",
-      //     },
-      //     id: "8d0ccd7b-64ac-4279-9f5d-d3ee4511bcab",
-      //   } as GetPlayerQueryVariables,
-      // });
-
-      const apiData = await API.graphql({
-        query: getPlayer,
-        variables: { id },
+      const apiData = await callGraphQL<GetPlayerQuery>(getPlayer, {
+        variables: {
+          id: id,
+        } as GetPlayerQueryVariables,
       });
 
-      console.log(apiData);
-      // @ts-ignore
       const fetchPlayer = mapGetPlayerQuery(apiData);
       
       if (!fetchPlayer) return;
-      console.log("HELLO");
-      console.log(fetchPlayer);
+
       setPlayer(fetchPlayer);
     }
 

@@ -8,5 +8,5 @@ export interface GraphQLOptions {
 }
 
 export async function callGraphQL<T>(query: any, options?: GraphQLOptions): Promise<GraphQLResult<T>> {
-  return (await API.graphql(graphqlOperation(query, options))) as GraphQLResult<T>
+  return (await API.graphql(graphqlOperation(query, options?.variables))) as GraphQLResult<T>
 }
