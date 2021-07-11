@@ -1,30 +1,34 @@
-import { useEffect, useState } from "react";
-import { GetPlayerQuery, GetPlayerQueryVariables } from "../API";
-import { callGraphQL } from "../graphql/callGraphQl";
-import { getPlayer } from "../graphql/queries";
-import { mapGetPlayerQuery } from "../models/player";
-import { Player as PlayerModel } from "../models";
-import { RouteComponentProps } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
+import { GetPlayerQuery, GetPlayerQueryVariables } from '../API';
+import { callGraphQL } from '../graphql/callGraphQl';
+import { getPlayer } from '../graphql/queries';
+import { mapGetPlayerQuery } from '../models/player';
+import { Player as PlayerModel } from '../models';
+import {
+  Title, Player as PlayerDiv, Id, Details,
+} from './Player.styles';
 
-type routeParams = {
+type RouteParams = {
   id: string | undefined;
 };
 
-export const Player = ({ match }: RouteComponentProps<routeParams>) => {
-  const id = match.params.id;
+export const Player = ({ match }: RouteComponentProps<RouteParams>) => {
+  const { id } = match.params;
   const [player, setPlayer] = useState<PlayerModel>();
+  const [isCurrentUser, setCurrentUser] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-
       const apiData = await callGraphQL<GetPlayerQuery>(getPlayer, {
         variables: {
-          id: id,
+          id,
         } as GetPlayerQueryVariables,
       });
 
       const fetchPlayer = mapGetPlayerQuery(apiData);
-      
+
       if (!fetchPlayer) return;
 
       setPlayer(fetchPlayer);
@@ -35,12 +39,38 @@ export const Player = ({ match }: RouteComponentProps<routeParams>) => {
 
   if (!player) return <div>Loading your player</div>;
 
+  Auth.currentUserInfo().then((res) => {
+    if (player.email === res.attributes.email) {
+      setCurrentUser(true);
+    }
+  });
+
   return (
-    <div>
-      {player.id}
-      {player.firstName}
-      {player.lastName}
-      {player.lastName}
-    </div>
+    <PlayerDiv>
+      <Title>Player Page</Title>
+      {isCurrentUser && <p>This is your user</p>}
+      <Id>
+        ID:
+        {' '}
+        {player.id}
+      </Id>
+      <Details>
+        Name:
+        {' '}
+        {player.firstName}
+        {' '}
+        {player.lastName}
+        <Details>
+          Email:
+          {' '}
+          {player.email}
+        </Details>
+      </Details>
+      <Details>
+        Date of Birth:
+        {' '}
+        {new Date(player.dob).toDateString()}
+      </Details>
+    </PlayerDiv>
   );
 };

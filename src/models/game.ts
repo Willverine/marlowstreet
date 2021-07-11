@@ -13,7 +13,7 @@ export function mapListGamesQuery(listGamesQuery: GraphQLResult<ListGamesQuery>)
     weekID: Game?.weekID,
     createdAt: Game?.createdAt,
     updatedAt: Game?.updatedAt,
-  })) || []
+  } as Omit<Game, 'team1' | 'team2'>)) || []
 }
 
 export function mapGetGamesQuery(getGamesQuery: GraphQLResult<GetGameQuery>): Game | undefined {

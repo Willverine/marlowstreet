@@ -1,28 +1,28 @@
-import { useCallback, useState } from "react";
-import { GetTeamQuery } from "../API";
-import { callGraphQL } from "../graphql/callGraphQl";
-import { getTeam } from "../graphql/queries";
-import { mapGetTeamQuery } from "../models/team";
+import { useCallback, useState } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { GetTeamQuery } from '../API';
+import { callGraphQL } from '../graphql/callGraphQl';
+import { getTeam } from '../graphql/queries';
+import { mapGetTeamQuery } from '../models/team';
 import { Team as TeamModel } from '../models';
-import { RouteComponentProps } from "react-router-dom";
 
-type routeParams = {
-    id: string | undefined;
+type RouteParams = {
+  id: string | undefined;
 };
 
 interface Props {
-    route: RouteComponentProps<routeParams>;
+  route: RouteComponentProps<RouteParams>;
 }
 
 export const Team = ({ route }: Props) => {
-  const id = route.match.params.id;
+  const { id } = route.match.params;
   const [team, setTeam] = useState<TeamModel>();
 
-  useCallback(async  () => {
+  useCallback(async () => {
     const apiData = await callGraphQL<GetTeamQuery>(getTeam, {
-    input: {
-        id: id,
-    },
+      input: {
+        id,
+      },
     });
 
     const fetchTeam = mapGetTeamQuery(apiData);
@@ -31,7 +31,6 @@ export const Team = ({ route }: Props) => {
 
     setTeam(fetchTeam);
   }, [id]);
-
 
   if (!team) return <div>Loading your player</div>;
 
