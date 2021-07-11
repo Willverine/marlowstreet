@@ -1,10 +1,16 @@
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { Amplify, Auth } from 'aws-amplify';
 import { Home } from './views/Home';
 import { Team as TeamView } from './views/Team';
 import { Player as PlayerView } from './views/Player';
 import { Admin } from './views/Admin';
+import awsconfig from './aws-exports';
+
+Amplify.configure(awsconfig);
+
+Auth.configure(awsconfig);
 
 export const App = withAuthenticator(() => (
   <Router>
