@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { App } from './App';
+import { Player } from './Player';
 
 test('renders hello', () => {
-  render(<App />);
+  render(<Player match={{ params: { id: '' } }} />);
   const linkElement = screen.getByText(/player/i);
   expect(linkElement).toBeInTheDocument();
 });

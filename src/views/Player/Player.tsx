@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { GetPlayerQuery, GetPlayerQueryVariables } from '../API';
-import { callGraphQL } from '../graphql/callGraphQl';
-import { getPlayer } from '../graphql/queries';
-import { mapGetPlayerQuery } from '../models/player';
-import { Player as PlayerModel } from '../models';
+import { GetPlayerQuery, GetPlayerQueryVariables } from '../../API';
+import { callGraphQL } from '../../graphql/callGraphQl';
+import { getPlayer } from '../../graphql/queries';
+import { mapGetPlayerQuery } from '../../models/player';
+import { Player as PlayerModel } from '../../models';
 import {
   Title, Player as PlayerDiv, Id, Details,
 } from './Player.styles';
