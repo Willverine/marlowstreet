@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { Player } from '../../models';
 import { PlayerDetails } from './Details';
 
-test('renders hello', () => {
+test('renders the player details', () => {
   const playerMock: Player = {
     firstName: 'bob',
     lastName: 'jones',
