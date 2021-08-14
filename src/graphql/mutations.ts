@@ -13,6 +13,24 @@ export const createSeason = /* GraphQL */ `
       startDate
       endDate
       weeks {
+        items {
+          id
+          day
+          games {
+            nextToken
+          }
+          seasonID
+          season {
+            id
+            name
+            startDate
+            endDate
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -31,6 +49,24 @@ export const updateSeason = /* GraphQL */ `
       startDate
       endDate
       weeks {
+        items {
+          id
+          day
+          games {
+            nextToken
+          }
+          seasonID
+          season {
+            id
+            name
+            startDate
+            endDate
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -49,6 +85,24 @@ export const deleteSeason = /* GraphQL */ `
       startDate
       endDate
       weeks {
+        items {
+          id
+          day
+          games {
+            nextToken
+          }
+          seasonID
+          season {
+            id
+            name
+            startDate
+            endDate
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -65,6 +119,60 @@ export const createWeek = /* GraphQL */ `
       id
       day
       games {
+        items {
+          id
+          time
+          team1 {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          team2 {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          team1Score
+          team2Score
+          team1SpiritScore
+          team2SpiritScore
+          team1mvp {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          team2mvp {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          weekID
+          week {
+            id
+            day
+            seasonID
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       seasonID
@@ -73,6 +181,16 @@ export const createWeek = /* GraphQL */ `
         name
         startDate
         endDate
+        weeks {
+          items {
+            id
+            day
+            seasonID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -90,6 +208,60 @@ export const updateWeek = /* GraphQL */ `
       id
       day
       games {
+        items {
+          id
+          time
+          team1 {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          team2 {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          team1Score
+          team2Score
+          team1SpiritScore
+          team2SpiritScore
+          team1mvp {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          team2mvp {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          weekID
+          week {
+            id
+            day
+            seasonID
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       seasonID
@@ -98,6 +270,16 @@ export const updateWeek = /* GraphQL */ `
         name
         startDate
         endDate
+        weeks {
+          items {
+            id
+            day
+            seasonID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -115,6 +297,60 @@ export const deleteWeek = /* GraphQL */ `
       id
       day
       games {
+        items {
+          id
+          time
+          team1 {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          team2 {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          team1Score
+          team2Score
+          team1SpiritScore
+          team2SpiritScore
+          team1mvp {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          team2mvp {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          weekID
+          week {
+            id
+            day
+            seasonID
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       seasonID
@@ -123,6 +359,16 @@ export const deleteWeek = /* GraphQL */ `
         name
         startDate
         endDate
+        weeks {
+          items {
+            id
+            day
+            seasonID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -141,17 +387,79 @@ export const createGame = /* GraphQL */ `
       time
       team1 {
         id
+        captain {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         colour
         name
-        players
+        players {
+          items {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
       team2 {
         id
+        captain {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         colour
         name
-        players
+        players {
+          items {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -166,6 +474,28 @@ export const createGame = /* GraphQL */ `
         dob
         mobileNumber
         email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -176,6 +506,28 @@ export const createGame = /* GraphQL */ `
         dob
         mobileNumber
         email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -183,7 +535,32 @@ export const createGame = /* GraphQL */ `
       week {
         id
         day
+        games {
+          items {
+            id
+            time
+            team1Score
+            team2Score
+            team1SpiritScore
+            team2SpiritScore
+            weekID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         seasonID
+        season {
+          id
+          name
+          startDate
+          endDate
+          weeks {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -202,17 +579,79 @@ export const updateGame = /* GraphQL */ `
       time
       team1 {
         id
+        captain {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         colour
         name
-        players
+        players {
+          items {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
       team2 {
         id
+        captain {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         colour
         name
-        players
+        players {
+          items {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -227,6 +666,28 @@ export const updateGame = /* GraphQL */ `
         dob
         mobileNumber
         email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -237,6 +698,28 @@ export const updateGame = /* GraphQL */ `
         dob
         mobileNumber
         email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -244,7 +727,32 @@ export const updateGame = /* GraphQL */ `
       week {
         id
         day
+        games {
+          items {
+            id
+            time
+            team1Score
+            team2Score
+            team1SpiritScore
+            team2SpiritScore
+            weekID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         seasonID
+        season {
+          id
+          name
+          startDate
+          endDate
+          weeks {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -263,17 +771,79 @@ export const deleteGame = /* GraphQL */ `
       time
       team1 {
         id
+        captain {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         colour
         name
-        players
+        players {
+          items {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
       team2 {
         id
+        captain {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
         colour
         name
-        players
+        players {
+          items {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -288,6 +858,28 @@ export const deleteGame = /* GraphQL */ `
         dob
         mobileNumber
         email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -298,6 +890,28 @@ export const deleteGame = /* GraphQL */ `
         dob
         mobileNumber
         email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -305,7 +919,32 @@ export const deleteGame = /* GraphQL */ `
       week {
         id
         day
+        games {
+          items {
+            id
+            time
+            team1Score
+            team2Score
+            team1SpiritScore
+            team2SpiritScore
+            weekID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         seasonID
+        season {
+          id
+          name
+          startDate
+          endDate
+          weeks {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -328,12 +967,54 @@ export const createTeam = /* GraphQL */ `
         dob
         mobileNumber
         email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
       colour
       name
-      players
+      players {
+        items {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -353,12 +1034,54 @@ export const updateTeam = /* GraphQL */ `
         dob
         mobileNumber
         email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
       colour
       name
-      players
+      players {
+        items {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -378,12 +1101,54 @@ export const deleteTeam = /* GraphQL */ `
         dob
         mobileNumber
         email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
       colour
       name
-      players
+      players {
+        items {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -401,6 +1166,46 @@ export const createPlayer = /* GraphQL */ `
       dob
       mobileNumber
       email
+      teamID
+      team {
+        id
+        captain {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        colour
+        name
+        players {
+          items {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -418,6 +1223,46 @@ export const updatePlayer = /* GraphQL */ `
       dob
       mobileNumber
       email
+      teamID
+      team {
+        id
+        captain {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        colour
+        name
+        players {
+          items {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -435,6 +1280,46 @@ export const deletePlayer = /* GraphQL */ `
       dob
       mobileNumber
       email
+      teamID
+      team {
+        id
+        captain {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        colour
+        name
+        players {
+          items {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

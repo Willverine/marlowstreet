@@ -1,6 +1,6 @@
 import { GetGameQuery, ListGamesQuery } from "../API";
 import { GraphQLResult } from "@aws-amplify/api";
-import { Game } from ".";
+import { Game, Player, Team, Week } from ".";
 
 export function mapListGamesQuery(listGamesQuery: GraphQLResult<ListGamesQuery>) {
   return listGamesQuery.data?.listGames?.items?.map(Game => ({
@@ -26,15 +26,15 @@ export function mapGetGamesQuery(getGamesQuery: GraphQLResult<GetGameQuery>): Ga
   return {
     id: game.id,
     time: game.time,
-    team1: game.team1,
-    team2: game.team2,
+    team1: game.team1 as Team,
+    team2: game.team2 as Team,
     team1Score: game.team1Score,
     team2Score: game.team2Score,
     team1SpiritScore: game.team1SpiritScore,
     team2SpiritScore: game.team2SpiritScore,
-    team1mvp: game.team1mvp || undefined,
-    team2mvp: game.team2mvp || undefined,
-    week: game.week || undefined,
+    team1mvp: game.team1mvp as Player,
+    team2mvp: game.team2mvp as Player,
+    week: game.week as Week,
     createdAt: game.createdAt,
     updatedAt: game.updatedAt,
   };

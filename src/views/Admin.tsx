@@ -7,6 +7,8 @@ import {
   CreatePlayerMutationVariables,
   CreateSeasonMutation,
   CreateSeasonMutationVariables,
+  CreateTeamMutation,
+  CreateTeamMutationVariables,
   ListGamesQuery,
   ListPlayersQuery,
   ListSeasonsQuery,
@@ -22,7 +24,9 @@ import {
 } from '../graphql/queries';
 import { callGraphQL } from '../graphql/callGraphQl';
 import { mapListSeasonsQuery } from '../models/season';
-import { createGame, createPlayer, createSeason } from '../graphql/mutations';
+import {
+  createGame, createPlayer, createSeason, createTeam,
+} from '../graphql/mutations';
 import {
   Game, Player, Season, Team, Week,
 } from '../models';
@@ -110,16 +114,32 @@ export const Admin = withAuthenticator(() => {
     } as CreateGameMutationVariables);
   };
 
+  const createTeamMutation = async () => {
+    if (!players) { return; }
+
+    await callGraphQL<CreateTeamMutation>(createTeam, {
+      variables: {
+        input: {
+          colour: 'red',
+          name: 'third team name',
+        },
+      } as CreateTeamMutationVariables,
+    });
+  };
+
   const createPlayerMutation = async () => {
     await callGraphQL<CreatePlayerMutation>(createPlayer, {
-      input: {
-        firstName: 'test',
-        lastName: 'name',
-        email: '',
-        mobileNumber: '',
-        dob: new Date().toISOString(),
-      },
-    } as CreatePlayerMutationVariables);
+      variables: {
+        input: {
+          firstName: 'newset',
+          lastName: 'teamplayer',
+          email: 'asdf@asdf.com',
+          mobileNumber: '0412312312',
+          dob: new Date().toISOString(),
+          teamID: '63b965e2-5a35-4773-94c9-76fb248c8b8a',
+        },
+      } as CreatePlayerMutationVariables,
+    });
   };
 
   return (
@@ -127,13 +147,13 @@ export const Admin = withAuthenticator(() => {
       <h1>Seasons list:</h1>
       {seasons?.map((season) => `${season.startDate}, `)}
       <h1>weeks list:</h1>
-      {weeks?.map((a) => a.id)}
+      {weeks?.map((a) => `${a.id}, `)}
       <h1>teams list:</h1>
-      {teams?.map((a) => a.id)}
+      {teams?.map((a) => `${a.id}, `)}
       <h1>games list:</h1>
-      {games?.map((a) => a.id)}
+      {games?.map((a) => `${a.id}, `)}
       <h1>players list:</h1>
-      {players?.map((a) => `${a.id}, `)}
+      {players?.map((a) => `${a.firstName} + ${a.id}, `)}
       <div style={{ width: '100%', backgroundColor: 'red' }}>
         --------------------
       </div>
@@ -149,7 +169,7 @@ export const Admin = withAuthenticator(() => {
         <input type="text" ref={weekName} />
         <button type="button" onClick={createSeasonMutation}>Click to create new week</button>
         <input type="text" ref={teamName} />
-        <button type="button" onClick={createSeasonMutation}>Click to create new team</button>
+        <button type="button" onClick={createTeamMutation}>Click to create new team</button>
         <input type="text" ref={gameName} />
         <button type="button" onClick={createGameMutation}>Click to create new game</button>
         <input type="text" ref={playerName} />

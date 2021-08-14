@@ -34,14 +34,16 @@ type Team @model {
   captain: Player @connection
   colour: String!
   name: String!
-  players: Int!
+  players: [Player] @connection(keyName: "byTeam", fields: ["id"])
 }
 
-type Player @model {
+type Player @model @key(name: "byTeam", fields: ["teamID", "firstName", "lastName"]) {
   id: ID!
-	firstName: String!
-	lastName: String!
-	dob: AWSDateTime!
-	mobileNumber: String!
-	email: String!
+  firstName: String!
+  lastName: String!
+  dob: AWSDateTime!
+  mobileNumber: String!
+  email: String!
+  teamID: ID
+  team: Team @connection(fields: ["teamID"])
 }

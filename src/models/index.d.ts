@@ -50,7 +50,7 @@ export declare class Team {
   readonly captain?: Player;
   readonly colour: string;
   readonly name: string;
-  readonly players: number;
+  readonly players?: (Player | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Team>);
@@ -64,6 +64,7 @@ export declare class Player {
   readonly dob: string;
   readonly mobileNumber: string;
   readonly email: string;
+  readonly team?: Team;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Player>);

@@ -21,12 +21,12 @@ export const TeamDetails = ({ team }: Props) => (
     </Details>
     <Details>
       Captain:
-      {team.captain}
+      {team.captain?.firstName}
     </Details>
     <Details>
       Players:
       {' '}
-      {/* {team.players} */}
+      {team.players && team.players[0]?.firstName}
     </Details>
   </>
 );
