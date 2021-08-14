@@ -1,13 +1,13 @@
-import { ListWeeksQuery } from "../API";
-import { GraphQLResult } from "@aws-amplify/api";
-import { Week } from ".";
+import { GraphQLResult } from '@aws-amplify/api';
+import { ListWeeksQuery } from '../API';
+import { Week } from '.';
 
 export function mapListWeeksQuery(listWeeksQuery: GraphQLResult<ListWeeksQuery>): Week[] {
-  return listWeeksQuery.data?.listWeeks?.items?.map(Week => ({
-    id: Week?.id,
-    createdAt: Week?.createdAt,
-    updatedAt: Week?.updatedAt,
-    day: Week?.day,
-    seasonID: Week?.seasonID,
-  } as Week)) || []
+  return listWeeksQuery.data?.listWeeks?.items?.map((weekResult) => ({
+    id: weekResult?.id,
+    createdAt: weekResult?.createdAt,
+    updatedAt: weekResult?.updatedAt,
+    day: weekResult?.day,
+    seasonID: weekResult?.seasonID,
+  } as Week)) || [];
 }
