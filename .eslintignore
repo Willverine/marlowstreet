@@ -1,4 +1,6 @@
-src/models
+src/models/schema.js
+src/models/schema.d.ts
+src/models/index.d.ts
 build
 node_modules
 amplify

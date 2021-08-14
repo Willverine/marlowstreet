@@ -1,26 +1,28 @@
-import { GetGameQuery, ListGamesQuery } from "../API";
-import { GraphQLResult } from "@aws-amplify/api";
-import { Game, Player, Team, Week } from ".";
+import { GraphQLResult } from '@aws-amplify/api';
+import { GetGameQuery, ListGamesQuery } from '../API';
+import {
+  Game, Player, Team, Week,
+} from '.';
 
 export function mapListGamesQuery(listGamesQuery: GraphQLResult<ListGamesQuery>) {
-  return listGamesQuery.data?.listGames?.items?.map(Game => ({
-    id: Game?.id,
-    time: Game?.time,
-    team1Score: Game?.team1Score,
-    team2Score: Game?.team2Score,
-    team1SpiritScore: Game?.team1SpiritScore,
-    team2SpiritScore: Game?.team2SpiritScore,
-    weekID: Game?.weekID,
-    createdAt: Game?.createdAt,
-    updatedAt: Game?.updatedAt,
-  } as Omit<Game, 'team1' | 'team2'>)) || []
+  return listGamesQuery.data?.listGames?.items?.map((gameResult) => ({
+    id: gameResult?.id,
+    time: gameResult?.time,
+    team1Score: gameResult?.team1Score,
+    team2Score: gameResult?.team2Score,
+    team1SpiritScore: gameResult?.team1SpiritScore,
+    team2SpiritScore: gameResult?.team2SpiritScore,
+    weekID: gameResult?.weekID,
+    createdAt: gameResult?.createdAt,
+    updatedAt: gameResult?.updatedAt,
+  } as Omit<Game, 'team1' | 'team2'>)) || [];
 }
 
 export function mapGetGamesQuery(getGamesQuery: GraphQLResult<GetGameQuery>): Game | undefined {
   const game = getGamesQuery.data?.getGame;
 
   if (!game) {
-    return;
+    return {} as Game;
   }
 
   return {
