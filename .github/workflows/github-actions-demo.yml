@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '15.x'
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - name: Install yarn
-        run: yarn --frozen-lockfile
+      - name: Install project
+        run: npm install
       - name: run linting
-        run: yarn eslint src/**/*.tsx src/**/*.ts
+        run: npm run lint
