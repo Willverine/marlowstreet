@@ -1,1 +1,6 @@
 src/models
+build
+node_modules
+amplify
+.eslintrc.js
+reportWebVitals.js

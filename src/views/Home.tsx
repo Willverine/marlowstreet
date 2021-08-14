@@ -1,7 +1,5 @@
-export const Home = () => {
-  return (
-    <div>
-      Hello from marlow street
-    </div>
-  );
-};
+export const Home = () => (
+  <div>
+    Hello from marlow street
+  </div>
+);
