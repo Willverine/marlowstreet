@@ -18,3 +18,8 @@ export const Id = styled.p({
   colour: 'grey',
   fontSize: '12px',
 });
+
+export const PlayerList = styled.ol({
+  margin: '20px',
+  backgroundColor: 'lightgray',
+});
