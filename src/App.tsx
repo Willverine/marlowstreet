@@ -7,6 +7,7 @@ import { Team as TeamView } from './views/Team/Team';
 import { Player as PlayerView } from './views/Player/Player';
 import { Game as GameView } from './views/Game/Game';
 import { Week as WeekView } from './views/Week/Week';
+import { Season as SeasonView } from './views/Season/Season';
 import { Admin } from './views/Admin';
 import awsConfig from './aws-exports';
 
@@ -29,6 +30,7 @@ export const App = withAuthenticator(() => (
     <Route path="/player/:id" component={PlayerView} />
     <Route path="/game/:id" component={GameView} />
     <Route path="/week/:id" component={WeekView} />
+    <Route path="/season/:id" component={SeasonView} />
   </Router>
 ));
 

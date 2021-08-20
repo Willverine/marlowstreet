@@ -1,6 +1,6 @@
 import { GraphQLResult } from '@aws-amplify/api';
-import { ListSeasonsQuery } from '../API';
-import { Season } from '.';
+import { GetSeasonQuery, ListSeasonsQuery } from '../API';
+import { Season, Week } from '.';
 
 export function mapListSeasonsQuery(listSeasonsQuery: GraphQLResult<ListSeasonsQuery>): Season[] {
   return listSeasonsQuery.data?.listSeasons?.items?.map((seasonResult) => ({
@@ -11,4 +11,21 @@ export function mapListSeasonsQuery(listSeasonsQuery: GraphQLResult<ListSeasonsQ
     createdAt: seasonResult?.createdAt,
     updatedAt: seasonResult?.updatedAt,
   } as Season)) || [];
+}
+
+// eslint-disable-next-line max-len
+export function mapGetSeasonQuery(getSeasonQuery: GraphQLResult<GetSeasonQuery>): Season | undefined {
+  const season = getSeasonQuery.data?.getSeason;
+
+  if (!season) {
+    return {} as Season;
+  }
+
+  return {
+    id: season.id,
+    name: season.name,
+    startDate: season.startDate,
+    endDate: season.endDate,
+    weeks: season.weeks?.items as Week[] || [],
+  };
 }
