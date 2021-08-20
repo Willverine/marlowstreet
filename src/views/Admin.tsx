@@ -9,6 +9,8 @@ import {
   CreateSeasonMutationVariables,
   CreateTeamMutation,
   CreateTeamMutationVariables,
+  CreateWeekMutation,
+  CreateWeekMutationVariables,
   ListGamesQuery,
   ListPlayersQuery,
   ListSeasonsQuery,
@@ -25,7 +27,7 @@ import {
 import { callGraphQL } from '../graphql/callGraphQl';
 import { mapListSeasonsQuery } from '../models/season';
 import {
-  createGame, createPlayer, createSeason, createTeam,
+  createGame, createPlayer, createSeason, createTeam, createWeek,
 } from '../graphql/mutations';
 import {
   Game, Player, Season, Team, Week,
@@ -108,10 +110,33 @@ export const Admin = withAuthenticator(() => {
 
   const createGameMutation = async () => {
     await callGraphQL<CreateGameMutation>(createGame, {
-      input: {
-        time: new Date().toISOString(),
-      },
-    } as CreateGameMutationVariables);
+      variables: {
+        input: {
+          id: '12345',
+          time: new Date().toISOString(),
+          gameTeam1Id: '63b965e2-5a35-4773-94c9-76fb248c8b8a',
+          gameTeam2Id: '2f51152e-915e-4553-a8bd-4df41a7148e6',
+          team1Score: 10,
+          team2Score: 8,
+          team1SpiritScore: 5,
+          team2SpiritScore: 5,
+          gameTeam1mvpId: '123456',
+          gameTeam2mvpId: '123457',
+          weekID: '18e82cb6-3cd1-48af-a93f-a2abe09c2a25',
+        },
+      } as CreateGameMutationVariables,
+    });
+  };
+
+  const createWeekMutation = async () => {
+    await callGraphQL<CreateWeekMutation>(createWeek, {
+      variables: {
+        input: {
+          day: new Date().toISOString(),
+          seasonID: '50479b0e-b76f-4f8f-a404-692626169881',
+        },
+      } as CreateWeekMutationVariables,
+    });
   };
 
   const createTeamMutation = async () => {
@@ -146,7 +171,7 @@ export const Admin = withAuthenticator(() => {
   return (
     <header>
       <h1>Seasons list:</h1>
-      {seasons?.map((season) => `${season.startDate}, `)}
+      {seasons?.map((season) => `${season.id}, `)}
       <h1>weeks list:</h1>
       {weeks?.map((a) => `${a.id}, `)}
       <h1>teams list:</h1>
@@ -168,7 +193,7 @@ export const Admin = withAuthenticator(() => {
         <input type="text" ref={seasonName} />
         <button type="button" onClick={createSeasonMutation}>Click to create new season</button>
         <input type="text" ref={weekName} />
-        <button type="button" onClick={createSeasonMutation}>Click to create new week</button>
+        <button type="button" onClick={createWeekMutation}>Click to create new week</button>
         <input type="text" ref={teamName} />
         <button type="button" onClick={createTeamMutation}>Click to create new team</button>
         <input type="text" ref={gameName} />

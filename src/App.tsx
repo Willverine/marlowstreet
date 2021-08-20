@@ -5,6 +5,7 @@ import { Amplify, Auth } from 'aws-amplify';
 import { Home } from './views/Home';
 import { Team as TeamView } from './views/Team/Team';
 import { Player as PlayerView } from './views/Player/Player';
+import { Game as GameView } from './views/Game/Game';
 import { Admin } from './views/Admin';
 import awsConfig from './aws-exports';
 
@@ -25,6 +26,7 @@ export const App = withAuthenticator(() => (
     <Route path="/admin" exact component={Admin} />
     <Route path="/team/:id" component={TeamView} />
     <Route path="/player/:id" component={PlayerView} />
+    <Route path="/game/:id" component={GameView} />
   </Router>
 ));
 
