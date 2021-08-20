@@ -29,5 +29,38 @@ export const PlayerDetails = ({ player }: Props) => (
       {' '}
       {new Date(player.dob).toDateString()}
     </Details>
+    {player.team && (
+    <div>
+      Team:
+      {' '}
+      {player.team.name}
+      {' '}
+      Team ID:
+      {' '}
+      {player.team.id}
+    </div>
+    )}
+  </>
+);
+
+export const PlayerDetailsList = ({ player }: Props) => (
+  <>
+    <Id>
+      ID:
+      {' '}
+      {player.id}
+    </Id>
+    <Details>
+      Name:
+      {' '}
+      {player.firstName}
+      {' '}
+      {player.lastName}
+    </Details>
+    <Details>
+      Email:
+      {' '}
+      {player.email}
+    </Details>
   </>
 );

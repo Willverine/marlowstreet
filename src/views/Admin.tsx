@@ -131,8 +131,9 @@ export const Admin = withAuthenticator(() => {
     await callGraphQL<CreatePlayerMutation>(createPlayer, {
       variables: {
         input: {
-          firstName: 'newset',
-          lastName: 'teamplayer',
+          id: '123457',
+          firstName: 'Will',
+          lastName: 'Owens',
           email: 'asdf@asdf.com',
           mobileNumber: '0412312312',
           dob: new Date().toISOString(),

@@ -1,6 +1,6 @@
 import { GraphQLResult } from '@aws-amplify/api';
 import { GetPlayerQuery, ListPlayersQuery } from '../API';
-import { Player } from '.';
+import { Player, Team } from '.';
 
 export function mapListPlayersQuery(listPlayersQuery: GraphQLResult<ListPlayersQuery>): Player[] {
   return listPlayersQuery.data?.listPlayers?.items?.map((playerResult) => ({
@@ -32,5 +32,6 @@ export function mapGetPlayerQuery(getPlayerQuery: GraphQLResult<GetPlayerQuery>)
     email: player.email,
     createdAt: player.createdAt,
     updatedAt: player.updatedAt,
+    team: player.team as Team,
   };
 }
