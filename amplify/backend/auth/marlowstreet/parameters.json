@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "marlowstreet257fc4bd_identitypool_257fc4bd",
+    "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "marlow257fc4bd",
-    "userPoolName": "marlowstreet257fc4bd_userpool_257fc4bd",
+    "resourceNameTruncated": "marlow1d78a12e",
+    "userPoolName": "marlowstreet",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -12,26 +12,28 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
+    "emailVerificationSubject": "Marlow Street Ultimate Verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "email",
+        "preferred_username",
+        "phone_number",
+        "birthdate",
+        "given_name",
+        "family_name"
     ],
+    "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [
-        "email"
-    ],
-    "userpoolClientReadAttributes": [
-        "email"
-    ],
-    "userpoolClientLambdaRole": "marlow257fc4bd_userpoolclient_lambda_role",
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
+    "userpoolClientLambdaRole": "marlow1d78a12e_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "257fc4bd",
-    "resourceName": "marlowstreet257fc4bd",
+    "sharedId": "1d78a12e",
+    "resourceName": "marlowstreet",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -45,9 +47,16 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
-    "userPoolGroupList": [],
     "serviceName": "Cognito",
+    "usernameAttributes": [
+        "email"
+    ],
+    "useDefault": "manual",
+    "userPoolGroups": false,
+    "userPoolGroupList": [],
+    "adminQueries": false,
+    "thirdPartyAuth": false,
+    "authProviders": [],
     "usernameCaseSensitive": false,
     "dependsOn": []
 }
