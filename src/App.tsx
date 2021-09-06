@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import {
   AmplifySignOut, AmplifyAuthenticator, AmplifyAuthContainer, AmplifySignUp,
@@ -26,10 +26,6 @@ export const App = () => (
       <Router>
         <div className="App">
           <AmplifySignOut style={{ backgroundColor: 'blue' }} />
-          <Link to="/team/1">First team</Link>
-          <Link to="/player/8d0ccd7b-64ac-4279-9f5d-d3ee4511bcab">
-            First player
-          </Link>
         </div>
         <Route path="/admin" exact component={Admin} />
         <Route path="/" exact component={Home} />
@@ -77,7 +73,7 @@ export const App = () => (
           },
           {
             type: 'birthdate',
-            label: 'You date of birth',
+            label: 'You date of birth (please include / slashes)',
             placeholder: '10/10/1990',
             required: true,
           },

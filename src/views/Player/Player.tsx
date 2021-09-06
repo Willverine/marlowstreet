@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { GetPlayerQuery, GetPlayerQueryVariables } from '../../API';
-import { callGraphQL } from '../../graphql/callGraphQl';
-import { getPlayer } from '../../graphql/queries';
-import { mapGetPlayerQuery } from '../../models/player';
+import { fetchPlayer } from '../../models/player';
 import { Player as PlayerModel } from '../../models';
 import {
   Title, Player as PlayerDiv,
@@ -21,21 +18,11 @@ export const Player = ({ match }: RouteComponentProps<RouteParams>) => {
   const [isCurrentUser, setCurrentUser] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
-      const apiData = await callGraphQL<GetPlayerQuery>(getPlayer, {
-        variables: {
-          id,
-        } as GetPlayerQueryVariables,
-      });
+    if (!id) return;
 
-      const fetchPlayer = mapGetPlayerQuery(apiData);
-
-      if (!fetchPlayer) return;
-
-      setPlayer(fetchPlayer);
-    }
-
-    fetchData();
+    fetchPlayer(id).then((playerData) => {
+      setPlayer(playerData);
+    });
   }, [id]);
 
   if (!player) return <div>Loading your player</div>;

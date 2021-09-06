@@ -22,7 +22,7 @@ export function mapGetGamesQuery(getGamesQuery: GraphQLResult<GetGameQuery>): Ga
   const game = getGamesQuery.data?.getGame;
 
   if (!game) {
-    return {} as Game;
+    return undefined;
   }
 
   return {
