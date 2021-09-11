@@ -58,18 +58,17 @@ export async function fetchPlayer(playerId: string) {
   return mapGetPlayerQuery(apiData);
 }
 
-export const createPlayerMutation = async (playerId: string) => { // this needs more inputs ofc
-  await callGraphQL<CreatePlayerMutation>(createPlayer, {
-    variables: {
-      input: {
-        id: playerId,
-        firstName: 'Will',
-        lastName: 'Owens',
-        email: 'asdf@asdf.com',
-        mobileNumber: '0412312312',
-        dob: new Date().toISOString(),
-        teamID: '63b965e2-5a35-4773-94c9-76fb248c8b8a',
-      },
-    } as CreatePlayerMutationVariables,
-  });
-};
+// eslint-disable-next-line max-len
+export const createPlayerMutation = async (player: Player, teamId?: string) => callGraphQL<CreatePlayerMutation>(createPlayer, {
+  variables: {
+    input: {
+      id: player.id,
+      firstName: player.firstName,
+      lastName: player.lastName,
+      email: player.email,
+      mobileNumber: player.mobileNumber,
+      dob: new Date(player.dob).toISOString(),
+      teamID: teamId,
+    },
+  } as CreatePlayerMutationVariables,
+});

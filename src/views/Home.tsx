@@ -1,8 +1,9 @@
 import { Auth } from 'aws-amplify';
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Player } from '../models';
 import { createPlayerMutation, fetchPlayer } from '../models/player';
 
-interface User { // move this out somewhere intelligent
+export interface User { // move this out somewhere intelligent
   attributes: {
     birthdate: string,
     email: string,
@@ -19,31 +20,39 @@ interface User { // move this out somewhere intelligent
 }
 
 export const Home = () => {
-  const [playerId, setPlayerId] = useState('');
+  const [getPlayer, setGetPlayer] = useState(false);
+  const [player, setPlayer] = useState<Player>();
 
-  useMemo(() => {
+  useEffect(() => {
     Auth.currentUserInfo().then((authUser: User | undefined) => {
       if (!authUser) return;
 
-      if (!authUser.attributes.preferred_username) return;
+      if (!authUser.username) return;
 
       // this is kinda dodgy - if a player doesn't visit this page on login they will never
       // get a user account created for them!!
 
       // if logged in fetch the player object from the auth username
-      fetchPlayer(authUser.attributes.preferred_username).then(async (playerData) => {
+
+      fetchPlayer(authUser.username).then((playerData) => {
         if (!playerData) {
           // if no player exists for that user we should create one:
-          await createPlayerMutation(authUser.attributes.preferred_username); // may not need await?
-          // add all other sign up fields we need to create a user
+          createPlayerMutation({
+            id: authUser.username,
+            firstName: authUser.attributes.given_name,
+            lastName: authUser.attributes.family_name,
+            dob: authUser.attributes.birthdate,
+            mobileNumber: authUser.attributes.phone_number,
+            email: authUser.attributes.email,
+          }).then(() => setGetPlayer(!getPlayer));
+        } else {
+          setPlayer(playerData);
         }
-        // player now exists so feel free to act as that player:
-        setPlayerId(authUser.attributes.preferred_username);
       });
     });
-  }, []);
+  }, [getPlayer]);
 
-  if (!playerId) {
+  if (!player) {
     return <div>Hello from marlow street you should log in.</div>;
   }
 
@@ -53,7 +62,14 @@ export const Home = () => {
         Hello from marlow street
       </div>
       <p>This is your player: </p>
-      <a href={`player/${playerId}`}>CLICK ME</a>
+      <a href={`player/${player.id}`}>CLICK ME</a>
+      {!player?.team
+        && (
+        <>
+          <p>If you need to add yourself to a team click below:</p>
+          <a href="join-a-team">I need a team</a>
+        </>
+        )}
     </div>
   );
 };
