@@ -13,6 +13,7 @@ import { Week as WeekView } from './views/Week/Week';
 import { Season as SeasonView } from './views/Season/Season';
 import { Admin } from './views/Admin';
 import awsConfig from './aws-exports';
+import { TeamSignUp } from './views/TeamSignUp/TeamSignUp';
 
 Amplify.configure(awsConfig);
 
@@ -34,6 +35,7 @@ export const App = () => (
         <Route path="/game/:id" component={GameView} />
         <Route path="/week/:id" component={WeekView} />
         <Route path="/season/:id" component={SeasonView} />
+        <Route path="/team-sign-up" component={TeamSignUp} />
       </Router>
       <AmplifySignUp
         slot="sign-up"
