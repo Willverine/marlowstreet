@@ -30,16 +30,15 @@ export const PlayerDetails = ({ player }: Props) => (
       {new Date(player.dob).toDateString()}
     </Details>
     {player.team && (
-    <a href={`/team/${player.team.id}`} style={{ backgroundColor: 'lightgray' }}>
+    <div>
       Team:
       {' '}
       {player.team.name}
       {' '}
-      <br />
       Team ID:
       {' '}
       {player.team.id}
-    </a>
+    </div>
     )}
   </>
 );

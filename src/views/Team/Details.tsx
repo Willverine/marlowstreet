@@ -41,5 +41,7 @@ export const TeamDetails = ({ team }: Props) => (
         ),
       )}
     </PlayerList>
+    Game:
+    <a href="/game/12345">Game 12345</a>
   </>
 );
