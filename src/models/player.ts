@@ -5,11 +5,13 @@ import {
   GetPlayerQuery,
   GetPlayerQueryVariables,
   ListPlayersQuery,
+  UpdatePlayerMutation,
+  UpdatePlayerMutationVariables,
 } from '../API';
 import { Player, Team } from '.';
 import { callGraphQL } from '../graphql/callGraphQl';
 import { getPlayer } from '../graphql/queries';
-import { createPlayer } from '../graphql/mutations';
+import { createPlayer, updatePlayer } from '../graphql/mutations';
 
 export function mapListPlayersQuery(listPlayersQuery: GraphQLResult<ListPlayersQuery>): Player[] {
   return listPlayersQuery.data?.listPlayers?.items?.map((playerResult) => ({
@@ -59,7 +61,7 @@ export async function fetchPlayer(playerId: string) {
 }
 
 // eslint-disable-next-line max-len
-export const createPlayerMutation = async (player: Player, teamId?: string) => callGraphQL<CreatePlayerMutation>(createPlayer, {
+export const createPlayerMutation = (player: Player, teamId?: string) => callGraphQL<CreatePlayerMutation>(createPlayer, {
   variables: {
     input: {
       id: player.id,
@@ -71,4 +73,33 @@ export const createPlayerMutation = async (player: Player, teamId?: string) => c
       teamID: teamId,
     },
   } as CreatePlayerMutationVariables,
+});
+
+// eslint-disable-next-line max-len
+export const updatePlayerMutation = (player: Player, teamId?: string) => callGraphQL<UpdatePlayerMutation>(updatePlayer, {
+  variables: {
+    input: {
+      id: player.id,
+      firstName: player.firstName,
+      lastName: player.lastName,
+      email: player.email,
+      mobileNumber: player.mobileNumber,
+      dob: new Date(player.dob).toISOString(),
+      teamID: teamId || player.team?.id,
+    },
+  } as UpdatePlayerMutationVariables,
+});
+
+export const addPlayerToTeam = () => callGraphQL<UpdatePlayerMutation>(updatePlayer, {
+  variables: {
+    input: {
+      id: '123457',
+      firstName: 'Will',
+      lastName: 'Owens',
+      email: 'asdf@asdf.com',
+      mobileNumber: '0412312312',
+      dob: new Date().toISOString(),
+      teamID: '63b965e2-5a35-4773-94c9-76fb248c8b8a',
+    },
+  } as UpdatePlayerMutationVariables,
 });
