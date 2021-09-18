@@ -90,16 +90,12 @@ export const updatePlayerMutation = (player: Player, teamId?: string) => callGra
   } as UpdatePlayerMutationVariables,
 });
 
-export const addPlayerToTeam = () => callGraphQL<UpdatePlayerMutation>(updatePlayer, {
+// eslint-disable-next-line max-len
+export const addPlayerToTeam = (playerId: string, teamId: string) => callGraphQL<UpdatePlayerMutation>(updatePlayer, {
   variables: {
     input: {
-      id: '123457',
-      firstName: 'Will',
-      lastName: 'Owens',
-      email: 'asdf@asdf.com',
-      mobileNumber: '0412312312',
-      dob: new Date().toISOString(),
-      teamID: '63b965e2-5a35-4773-94c9-76fb248c8b8a',
+      id: playerId,
+      teamID: teamId,
     },
   } as UpdatePlayerMutationVariables,
 });

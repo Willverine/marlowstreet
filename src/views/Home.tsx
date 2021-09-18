@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Auth } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 import { Player } from '../models';
@@ -20,20 +21,23 @@ export interface User { // move this out somewhere intelligent
 }
 
 export const Home = () => {
+  // Big dislike here - this getPlayer is just a trigger to rerun this useEffect manually :'(
   const [getPlayer, setGetPlayer] = useState(false);
   const [player, setPlayer] = useState<Player>();
 
   useEffect(() => {
     Auth.currentUserInfo().then((authUser: User | undefined) => {
-      if (!authUser) return;
+      if (!authUser) {
+        setTimeout(() => setGetPlayer(!getPlayer), 3000);
+        return;
+      }
 
-      if (!authUser.username) return;
+      if (!authUser.username) {
+        console.error('It appears you are logged in but have no user account. Contact the admin.');
+      }
 
       // this is kinda dodgy - if a player doesn't visit this page on login they will never
       // get a user account created for them!!
-
-      // if logged in fetch the player object from the auth username
-
       fetchPlayer(authUser.username).then((playerData) => {
         if (!playerData) {
           // if no player exists for that user we should create one:
@@ -49,11 +53,14 @@ export const Home = () => {
           setPlayer(playerData);
         }
       });
+    }).catch((event) => {
+      console.error('Something went wrong and you got Rejected bro');
+      console.error(event);
     });
   }, [getPlayer]);
 
   if (!player) {
-    return <div>Hello from marlow street you should log in.</div>;
+    return <div>Hello from marlow street loading...</div>;
   }
 
   return (

@@ -3,7 +3,7 @@ import { Auth } from 'aws-amplify';
 import { fetchTeams } from '../../models/team';
 import { Player, Team } from '../../models';
 import { Team as TeamDiv, Title } from '../Team/Team.styles';
-import { fetchPlayer, updatePlayerMutation } from '../../models/player';
+import { fetchPlayer, addPlayerToTeam } from '../../models/player';
 import { User } from '../Home';
 
 export const JoinATeam = () => {
@@ -28,9 +28,9 @@ export const JoinATeam = () => {
   const joinTeam = (teamId: string) => {
     if (!player) return;
 
-    const newPlayer = { ...player };
-
-    updatePlayerMutation(newPlayer, teamId);
+    addPlayerToTeam(player.id, teamId).then(() => {
+      window.location.href = `/team/${teamId}`;
+    });
   };
 
   useEffect(() => {
