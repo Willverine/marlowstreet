@@ -1,6 +1,12 @@
+/* eslint-disable max-len */
 import { GraphQLResult } from '@aws-amplify/api';
-import { GetTeamQuery, ListTeamsQuery } from '../API';
+import {
+  CreateTeamMutation, CreateTeamMutationVariables, GetTeamQuery, ListTeamsQuery,
+} from '../API';
 import { Player, Team } from '.';
+import { callGraphQL } from '../graphql/callGraphQl';
+import { createTeam } from '../graphql/mutations';
+import { listTeams } from '../graphql/queries';
 
 export function mapListTeamsQuery(listTeamsQuery: GraphQLResult<ListTeamsQuery>): Team[] {
   return listTeamsQuery.data?.listTeams?.items?.map((teamResult) => ({
@@ -30,3 +36,15 @@ export function mapGetTeamQuery(getTeamsQuery: GraphQLResult<GetTeamQuery>): Tea
     updatedAt: team.updatedAt,
   };
 }
+
+export const fetchTeams = () => callGraphQL<ListTeamsQuery>(listTeams).then((teamsQuery) => mapListTeamsQuery(teamsQuery));
+
+export const createTeamMutation = (team: Team) => callGraphQL<CreateTeamMutation>(createTeam, {
+  variables: {
+    input: {
+      colour: team.colour,
+      name: team.name,
+      teamCaptainId: team.captain?.id,
+    },
+  } as CreateTeamMutationVariables,
+});
