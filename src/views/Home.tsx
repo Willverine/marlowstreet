@@ -74,7 +74,9 @@ export const Home = () => {
         && (
         <>
           <p>If you need to add yourself to a team click below:</p>
-          <a href="join-a-team">I need a team</a>
+          <a href="join-a-team">Join an existing team</a>
+          <p>Alternatively you can create and captain your own team!</p>
+          <a href="team-sign-up">Create a new team</a>
         </>
         )}
     </div>

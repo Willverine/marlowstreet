@@ -10,6 +10,11 @@ export const Title = styled.h1({
   fontSize: '26px',
 });
 
+export const SubTitle = styled.p({
+  fontSize: '16px',
+  color: 'gray',
+});
+
 export const Details = styled.p({
   fontSize: '20px',
 });
