@@ -221,8 +221,22 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "team1mvp": {
-                    "name": "team1mvp",
+                "team1SpiritComments": {
+                    "name": "team1SpiritComments",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "team2SpiritComments": {
+                    "name": "team2SpiritComments",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "team1FemaleMvp": {
+                    "name": "team1FemaleMvp",
                     "isArray": false,
                     "type": {
                         "model": "Player"
@@ -231,11 +245,11 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "gameTeam1mvpId"
+                        "targetName": "gameTeam1FemaleMvpId"
                     }
                 },
-                "team2mvp": {
-                    "name": "team2mvp",
+                "team1MaleMvp": {
+                    "name": "team1MaleMvp",
                     "isArray": false,
                     "type": {
                         "model": "Player"
@@ -244,7 +258,33 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "gameTeam2mvpId"
+                        "targetName": "gameTeam1MaleMvpId"
+                    }
+                },
+                "team2FemaleMvp": {
+                    "name": "team2FemaleMvp",
+                    "isArray": false,
+                    "type": {
+                        "model": "Player"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "gameTeam2FemaleMvpId"
+                    }
+                },
+                "team2MaleMvp": {
+                    "name": "team2MaleMvp",
+                    "isArray": false,
+                    "type": {
+                        "model": "Player"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "gameTeam2MaleMvpId"
                     }
                 },
                 "week": {
@@ -464,11 +504,43 @@ export const schema = {
                             "lastName"
                         ]
                     }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ],
+                                "identityClaim": "cognito:username"
+                            },
+                            {
+                                "groupClaim": "cognito:groups",
+                                "provider": "userPools",
+                                "allow": "groups",
+                                "groups": [
+                                    "Admin"
+                                ],
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         }
     },
     "enums": {},
     "nonModels": {},
-    "version": "e4970638565fceb6eb95d05b796cf2f4"
+    "version": "edfaad5825a121a69aaf1273a3e2bd93"
 };

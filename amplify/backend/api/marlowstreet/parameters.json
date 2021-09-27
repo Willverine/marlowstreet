@@ -1,5 +1,11 @@
 {
   "AppSyncApiName": "marlowstreet",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authmarlowstreet",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

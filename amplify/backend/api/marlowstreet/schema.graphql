@@ -19,12 +19,16 @@ type Game @model @key(name: "byWeek", fields: ["weekID"]) {
   time: AWSDateTime!
   team1: Team! @connection
   team2: Team! @connection
-  team1Score: Int!
-  team2Score: Int!
-  team1SpiritScore: Int!
-  team2SpiritScore: Int!
-  team1mvp: Player @connection
-  team2mvp: Player @connection
+  team1Score: Int
+  team2Score: Int
+  team1SpiritScore: Int
+  team2SpiritScore: Int
+  team1SpiritComments: String
+  team2SpiritComments: String
+  team1FemaleMvp: Player @connection
+  team1MaleMvp: Player @connection
+  team2FemaleMvp: Player @connection
+  team2MaleMvp: Player @connection
   weekID: ID!
   week: Week @connection(fields: ["weekID"])
 }
@@ -37,7 +41,9 @@ type Team @model {
   players: [Player] @connection(keyName: "byTeam", fields: ["id"])
 }
 
-type Player @model @key(name: "byTeam", fields: ["teamID", "firstName", "lastName"]) {
+type Player @model @key(name: "byTeam", fields: ["teamID", "firstName", "lastName"]) @auth(rules: [
+    { allow: owner, ownerField: "id", operations: [create, delete, update] },
+  ]) {
   id: ID!
   firstName: String!
   lastName: String!

@@ -91,7 +91,9 @@ export const getWeek = /* GraphQL */ `
           team2Score
           team1SpiritScore
           team2SpiritScore
-          team1mvp {
+          team1SpiritComments
+          team2SpiritComments
+          team1FemaleMvp {
             id
             firstName
             lastName
@@ -102,7 +104,29 @@ export const getWeek = /* GraphQL */ `
             createdAt
             updatedAt
           }
-          team2mvp {
+          team1MaleMvp {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          team2FemaleMvp {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          team2MaleMvp {
             id
             firstName
             lastName
@@ -168,6 +192,8 @@ export const listWeeks = /* GraphQL */ `
             team2Score
             team1SpiritScore
             team2SpiritScore
+            team1SpiritComments
+            team2SpiritComments
             weekID
             createdAt
             updatedAt
@@ -280,7 +306,9 @@ export const getGame = /* GraphQL */ `
       team2Score
       team1SpiritScore
       team2SpiritScore
-      team1mvp {
+      team1SpiritComments
+      team2SpiritComments
+      team1FemaleMvp {
         id
         firstName
         lastName
@@ -312,7 +340,71 @@ export const getGame = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      team2mvp {
+      team1MaleMvp {
+        id
+        firstName
+        lastName
+        dob
+        mobileNumber
+        email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      team2FemaleMvp {
+        id
+        firstName
+        lastName
+        dob
+        mobileNumber
+        email
+        teamID
+        team {
+          id
+          captain {
+            id
+            firstName
+            lastName
+            dob
+            mobileNumber
+            email
+            teamID
+            createdAt
+            updatedAt
+          }
+          colour
+          name
+          players {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      team2MaleMvp {
         id
         firstName
         lastName
@@ -356,6 +448,8 @@ export const getGame = /* GraphQL */ `
             team2Score
             team1SpiritScore
             team2SpiritScore
+            team1SpiritComments
+            team2SpiritComments
             weekID
             createdAt
             updatedAt
@@ -438,7 +532,9 @@ export const listGames = /* GraphQL */ `
         team2Score
         team1SpiritScore
         team2SpiritScore
-        team1mvp {
+        team1SpiritComments
+        team2SpiritComments
+        team1FemaleMvp {
           id
           firstName
           lastName
@@ -456,7 +552,43 @@ export const listGames = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        team2mvp {
+        team1MaleMvp {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        team2FemaleMvp {
+          id
+          firstName
+          lastName
+          dob
+          mobileNumber
+          email
+          teamID
+          team {
+            id
+            colour
+            name
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        team2MaleMvp {
           id
           firstName
           lastName
