@@ -1,4 +1,5 @@
 import { GraphQLResult } from '@aws-amplify/api';
+import { Auth } from 'aws-amplify';
 import {
   CreatePlayerMutation,
   CreatePlayerMutationVariables,
@@ -31,8 +32,7 @@ export function mapGetPlayerQuery(getPlayerQuery: GraphQLResult<GetPlayerQuery>)
   const player = getPlayerQuery.data?.getPlayer;
 
   if (!player) {
-    return {} as Player;
-    // this is a problem i should fix -- fetchPlayer was returning empty player objects which is bad
+    return undefined;
   }
 
   return {
@@ -48,17 +48,11 @@ export function mapGetPlayerQuery(getPlayerQuery: GraphQLResult<GetPlayerQuery>)
   };
 }
 
-export async function fetchPlayer(playerId: string) {
-  const apiData = await callGraphQL<GetPlayerQuery>(getPlayer, {
-    variables: {
-      id: playerId,
-    } as GetPlayerQueryVariables,
-  });
-
-  if (!apiData?.data?.getPlayer) return undefined;
-
-  return mapGetPlayerQuery(apiData);
-}
+export const fetchPlayer = (playerId: string) => callGraphQL<GetPlayerQuery>(getPlayer, {
+  variables: {
+    id: playerId,
+  } as GetPlayerQueryVariables,
+}).then((res) => mapGetPlayerQuery(res));
 
 // eslint-disable-next-line max-len
 export const createPlayerMutation = (player: Player, teamId?: string) => callGraphQL<CreatePlayerMutation>(createPlayer, {
@@ -99,3 +93,22 @@ export const addPlayerToTeam = (playerId: string, teamId: string) => callGraphQL
     },
   } as UpdatePlayerMutationVariables,
 });
+
+// eslint-disable-next-line max-len
+export const getCurrentUserPlayer = () => Auth.currentUserInfo().then((authUser: User | undefined) => fetchPlayer(authUser?.username || '').then((fetchedPlayer) => fetchedPlayer));
+
+export interface User {
+  attributes: {
+    birthdate: string,
+    email: string,
+    email_verified: boolean,
+    family_name: string,
+    given_name: string,
+    phone_number: string,
+    phone_number_verified: boolean,
+    preferred_username: string,
+    sub: string,
+  },
+  id: string,
+  username: string,
+}

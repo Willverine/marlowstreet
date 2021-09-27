@@ -5,8 +5,7 @@ import { Auth } from 'aws-amplify';
 import { createTeamMutation } from '../../models/team';
 import { Player, Team as TeamModel } from '../../models';
 import { Team as TeamDiv, Title, SubTitle } from '../Team/Team.styles';
-import { fetchPlayer } from '../../models/player';
-import { User } from '../Home';
+import { fetchPlayer, User } from '../../models/player';
 
 export const TeamSignUp = () => {
   const [success, setSuccess] = useState(false);

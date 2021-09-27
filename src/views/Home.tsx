@@ -2,23 +2,7 @@
 import { Auth } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 import { Player } from '../models';
-import { createPlayerMutation, fetchPlayer } from '../models/player';
-
-export interface User { // move this out somewhere intelligent
-  attributes: {
-    birthdate: string,
-    email: string,
-    email_verified: boolean,
-    family_name: string,
-    given_name: string,
-    phone_number: string,
-    phone_number_verified: boolean,
-    preferred_username: string,
-    sub: string,
-  },
-  id: string,
-  username: string,
-}
+import { createPlayerMutation, fetchPlayer, User } from '../models/player';
 
 export const Home = () => {
   // Big dislike here - this getPlayer is just a trigger to rerun this useEffect manually :'(

@@ -41,15 +41,27 @@ export const GameDetails = ({ game }: Props) => (
     </Details>
     <Details>
       Team 1 MVP:
-      {game.team1mvp?.firstName}
+      {game.team1FemaleMvp?.firstName}
       {' '}
-      {game.team1mvp?.lastName}
+      {game.team1FemaleMvp?.lastName}
     </Details>
     <Details>
       Team 2 MVP:
-      {game.team2mvp?.firstName}
+      {game.team2FemaleMvp?.firstName}
       {' '}
-      {game.team2mvp?.lastName}
+      {game.team2FemaleMvp?.lastName}
+    </Details>
+    <Details>
+      Team 1 MVP:
+      {game.team1MaleMvp?.firstName}
+      {' '}
+      {game.team1MaleMvp?.lastName}
+    </Details>
+    <Details>
+      Team 2 MVP:
+      {game.team2MaleMvp?.firstName}
+      {' '}
+      {game.team2MaleMvp?.lastName}
     </Details>
   </>
 );
