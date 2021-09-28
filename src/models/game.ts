@@ -1,8 +1,10 @@
 import { GraphQLResult } from '@aws-amplify/api';
-import { GetGameQuery, ListGamesQuery } from '../API';
+import { GetGameQuery, GetTeamQueryVariables, ListGamesQuery } from '../API';
 import {
   Game, Player, Team, Week,
 } from '.';
+import { callGraphQL } from '../graphql/callGraphQl';
+import { getGame } from '../graphql/queries';
 
 export function mapListGamesQuery(listGamesQuery: GraphQLResult<ListGamesQuery>) {
   return listGamesQuery.data?.listGames?.items?.map((gameResult) => ({
@@ -43,3 +45,9 @@ export function mapGetGamesQuery(getGamesQuery: GraphQLResult<GetGameQuery>): Ga
     updatedAt: game.updatedAt,
   };
 }
+
+export const fetchGame = (id: string) => callGraphQL<GetGameQuery>(getGame, {
+  variables: {
+    id,
+  } as GetTeamQueryVariables,
+}).then((gameQuery) => mapGetGamesQuery(gameQuery));

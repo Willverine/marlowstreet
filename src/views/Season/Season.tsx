@@ -1,9 +1,7 @@
+/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { GetSeasonQuery, GetSeasonQueryVariables } from '../../API';
-import { callGraphQL } from '../../graphql/callGraphQl';
-import { getSeason } from '../../graphql/queries';
-import { mapGetSeasonQuery } from '../../models/season';
+import { fetchSeason } from '../../models/season';
 import { Season as SeasonModel } from '../../models';
 import { SeasonDetails } from './Details';
 import { Season as SeasonDiv, Title } from './Season.styles';
@@ -17,21 +15,11 @@ export const Season = ({ match }: RouteComponentProps<RouteParams>) => {
   const [season, setSeason] = useState<SeasonModel>();
 
   useEffect(() => {
-    async function fetchData() {
-      const apiData = await callGraphQL<GetSeasonQuery>(getSeason, {
-        variables: {
-          id,
-        } as GetSeasonQueryVariables,
-      });
+    if (!id) return;
 
-      const fetchSeason = mapGetSeasonQuery(apiData);
-
-      if (!fetchSeason) return;
-
-      setSeason(fetchSeason);
-    }
-
-    fetchData();
+    fetchSeason(id)
+      .then((fetchedSeason) => setSeason(fetchedSeason))
+      .catch((err) => console.error(err));
   }, [id]);
 
   if (!season) return <div>Loading your season</div>;

@@ -95,7 +95,10 @@ export const addPlayerToTeam = (playerId: string, teamId: string) => callGraphQL
 });
 
 // eslint-disable-next-line max-len
-export const getCurrentUserPlayer = () => Auth.currentUserInfo().then((authUser: User | undefined) => fetchPlayer(authUser?.username || '').then((fetchedPlayer) => fetchedPlayer));
+export const getCurrentUser = () => Auth.currentUserInfo().then((authUser: User | undefined) => authUser);
+
+// eslint-disable-next-line max-len
+export const getCurrentUserPlayer = () => getCurrentUser().then((user) => fetchPlayer(user?.username || '').then((fetchedPlayer) => fetchedPlayer));
 
 export interface User {
   attributes: {

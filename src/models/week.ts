@@ -1,6 +1,8 @@
 import { GraphQLResult } from '@aws-amplify/api';
-import { GetWeekQuery, ListWeeksQuery } from '../API';
+import { GetWeekQuery, GetWeekQueryVariables, ListWeeksQuery } from '../API';
 import { Game, Season, Week } from '.';
+import { getWeek, listWeeks } from '../graphql/queries';
+import { callGraphQL } from '../graphql/callGraphQl';
 
 export function mapListWeeksQuery(listWeeksQuery: GraphQLResult<ListWeeksQuery>): Week[] {
   return listWeeksQuery.data?.listWeeks?.items?.map((weekResult) => ({
@@ -26,3 +28,12 @@ export function mapGetWeekQuery(getWeekQuery: GraphQLResult<GetWeekQuery>): Week
     games: weekResult.games?.items as Game[] || [],
   };
 }
+
+// eslint-disable-next-line max-len
+export const fetchWeeks = () => callGraphQL<ListWeeksQuery>(listWeeks).then((weeksQuery) => mapListWeeksQuery(weeksQuery));
+
+export const fetchWeek = (id: string) => callGraphQL<GetWeekQuery>(getWeek, {
+  variables: {
+    id,
+  } as GetWeekQueryVariables,
+}).then((weekQuery) => mapGetWeekQuery(weekQuery));
