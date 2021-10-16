@@ -12,14 +12,14 @@ import { fetchSeasons } from '../../models/season';
 import { fetchTeam } from '../../models/team';
 import { fetchWeek } from '../../models/week';
 import {
-  Form, Label, ScoreInput, Select, SubmitButton, TextArea, Title,
+  Form, Label, ScoreInput, ScoreSelect, Select, SubmitButton, TextArea, Title,
 } from './SubmitGame.styles';
 
 export const SubmitGame = () => {
   const team1Score = useRef<HTMLInputElement>(null);
   const team2Score = useRef<HTMLInputElement>(null);
-  const team1SpiritScore = useRef<HTMLInputElement>(null);
-  const team2SpiritScore = useRef<HTMLInputElement>(null);
+  const team1SpiritScore = useRef<HTMLSelectElement>(null);
+  const team2SpiritScore = useRef<HTMLSelectElement>(null);
   const team1SpiritComments = useRef<HTMLInputElement>(null);
   const team2SpiritComments = useRef<HTMLInputElement>(null);
   const team1FemaleMvp = useRef<HTMLSelectElement>(null);
@@ -86,7 +86,6 @@ export const SubmitGame = () => {
 
         // at this point thisGame should be the game to submit scores for.
         setGame(thisGame);
-        console.log(thisGame);
       }).catch((err) => console.log(err));
     });
   }, [player]);
@@ -112,8 +111,7 @@ export const SubmitGame = () => {
         gameTeam2FemaleMvpId: team2?.players?.find((teamPlayer) => teamPlayer?.id === team2FemaleMvp?.current?.value || '')?.id || null,
         gameTeam2MaleMvpId: team2?.players?.find((teamPlayer) => teamPlayer?.id === team2MaleMvp?.current?.value || '')?.id || null,
       };
-      console.log(team1FemaleMvp.current?.value);
-      console.log(thisGame);
+
       updateGameMutation(thisGame).then((res) => console.log(res)).catch((err) => console.error(err));
     }
   };
@@ -121,7 +119,7 @@ export const SubmitGame = () => {
   if (!game || !team1 || !team2) {
     return (
       <>
-        loading...
+        Loading...
       </>
     );
   }
@@ -155,7 +153,13 @@ export const SubmitGame = () => {
         </Label>
         <Select id="team1FemaleMVP" ref={team1FemaleMvp} defaultValue={game?.team1FemaleMvp?.id || 'none'}>
           <option value="none" disabled>-</option>
-          {team1.players?.map((team1Player) => (<option key={team1Player?.id} value={team1Player?.id}>{team1Player?.firstName}</option>))}
+          {team1.players?.map((team1Player) => (
+            <option key={team1Player?.id} value={team1Player?.id}>
+              {team1Player?.firstName}
+              {' '}
+              {team1Player?.lastName}
+            </option>
+          ))}
         </Select>
         <Label aria-label="team1MaleMVP">
           {team1.name}
@@ -163,7 +167,13 @@ export const SubmitGame = () => {
         </Label>
         <Select id="team1MaleMVP" ref={team1MaleMvp} defaultValue={game?.team1MaleMvp?.id || 'none'}>
           <option value="none" disabled>-</option>
-          {team1.players?.map((team1Player) => (<option key={team1Player?.id} value={team1Player?.id}>{team1Player?.firstName}</option>))}
+          {team1.players?.map((team1Player) => (
+            <option key={team1Player?.id} value={team1Player?.id}>
+              {team1Player?.firstName}
+              {' '}
+              {team1Player?.lastName}
+            </option>
+          ))}
         </Select>
         <Label aria-label="team2FemaleMVP">
           {team2.name}
@@ -171,7 +181,13 @@ export const SubmitGame = () => {
         </Label>
         <Select id="team2FemaleMVP" ref={team2FemaleMvp} defaultValue={game?.team2FemaleMvp?.id || 'none'}>
           <option value="none" disabled>-</option>
-          {team2.players?.map((team2Player) => (<option key={team2Player?.id} value={team2Player?.id}>{team2Player?.firstName}</option>))}
+          {team2.players?.map((team2Player) => (
+            <option key={team2Player?.id} value={team2Player?.id}>
+              {team2Player?.firstName}
+              {' '}
+              {team2Player?.lastName}
+            </option>
+          ))}
         </Select>
         <Label aria-label="team2MaleMVP">
           {team2.name}
@@ -179,18 +195,40 @@ export const SubmitGame = () => {
         </Label>
         <Select id="team2MaleMVP" ref={team2MaleMvp} defaultValue={game?.team2MaleMvp?.id || 'none'}>
           <option value="none" disabled>-</option>
-          {team2.players?.map((team2Player) => (<option key={team2Player?.id} value={team2Player?.id}>{team2Player?.firstName}</option>))}
+          {team2.players?.map((team2Player) => (
+            <option key={team2Player?.id} value={team2Player?.id}>
+              {team2Player?.firstName}
+              {' '}
+              {team2Player?.lastName}
+            </option>
+          ))}
         </Select>
         <Label aria-label="team1SpiritScore">
           {team1.name}
           &apos;s spirit score
         </Label>
-        <ScoreInput id="team1SpiritScore" type="number" placeholder="3" ref={team1SpiritScore} defaultValue={game?.team1SpiritScore} min="1" max="5" />
+        <ScoreSelect id="team1SpiritScore" ref={team1SpiritScore} defaultValue={game?.team1SpiritScore || 3}>
+          <option value="none" disabled>-</option>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+        </ScoreSelect>
+        {/* <ScoreInput id="team1SpiritScore" type="number" placeholder="3" ref={team1SpiritScore} defaultValue={game?.team1SpiritScore} min="1" max="5" /> */}
         <Label aria-label="team2SpiritScore">
           {team2.name}
           &apos;s spirit score
         </Label>
-        <ScoreInput id="team2SpiritScore" type="number" placeholder="3" ref={team2SpiritScore} defaultValue={game?.team2SpiritScore} min="1" max="5" />
+        {/* <ScoreInput id="team2SpiritScore" type="number" placeholder="3" ref={team2SpiritScore} defaultValue={game?.team2SpiritScore} min="1" max="5" /> */}
+        <ScoreSelect id="team2SpiritScore" ref={team2SpiritScore} defaultValue={game?.team2SpiritScore || 3}>
+          <option value="none" disabled>-</option>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+        </ScoreSelect>
         <Label aria-label="team1SpiritComments">
           {team1.name}
           &apos;s spirit comments

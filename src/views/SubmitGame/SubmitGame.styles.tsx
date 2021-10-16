@@ -29,6 +29,14 @@ export const ScoreInput = styled.input`
   }
 `;
 
+export const ScoreSelect = styled.select`
+  max-width: 48px;
+  height: 24px;
+  font-size: 18px;
+  padding-left: 8px;
+  margin: 0;
+`;
+
 export const Select = styled.select`
   max-width: 200px;
   height: 24px;
@@ -57,9 +65,11 @@ export const SubmitButton = styled.button`
 
   &:hover {
     background-color: #c54a35;
+    cursor: pointer;
   }
 
   &:active {
     background-color: #8a3627;
+    cursor: pointer;
   }
 `;
