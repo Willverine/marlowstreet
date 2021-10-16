@@ -17,15 +17,13 @@ export function mapListWeeksQuery(listWeeksQuery: GraphQLResult<ListWeeksQuery>)
 export function mapGetWeekQuery(getWeekQuery: GraphQLResult<GetWeekQuery>): Week | undefined {
   const weekResult = getWeekQuery.data?.getWeek;
 
-  if (!weekResult) { return {} as Week; }
-
   return {
-    id: weekResult?.id,
+    id: weekResult?.id || '',
     createdAt: weekResult?.createdAt,
     updatedAt: weekResult?.updatedAt,
-    day: weekResult?.day,
+    day: weekResult?.day || '',
     season: weekResult?.season as Season || {} as Season,
-    games: weekResult.games?.items as Game[] || [],
+    games: weekResult?.games?.items as Game[] || [],
   };
 }
 
