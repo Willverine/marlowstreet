@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { GetTeamQuery, GetTeamQueryVariables } from '../../API';
-import { callGraphQL } from '../../graphql/callGraphQl';
-import { getTeam } from '../../graphql/queries';
-import { mapGetTeamQuery } from '../../models/team';
+import { fetchTeam } from '../../models/team';
 import { Team as TeamModel } from '../../models';
 import { TeamDetails } from './Details';
 import { Team as TeamDiv, Title } from './Team.styles';
@@ -19,21 +16,10 @@ export const Team = ({ match }: RouteComponentProps<RouteParams>) => {
   const [isCurrentUser, setCurrentUser] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
-      const apiData = await callGraphQL<GetTeamQuery>(getTeam, {
-        variables: {
-          id,
-        } as GetTeamQueryVariables,
-      });
+    if (!id) return;
 
-      const fetchTeam = mapGetTeamQuery(apiData);
-
-      if (!fetchTeam) return;
-
-      setTeam(fetchTeam);
-    }
-
-    fetchData();
+    // eslint-disable-next-line no-console
+    fetchTeam(id).then((fetchedTeam) => setTeam(fetchedTeam)).catch((err) => console.error(err));
   }, [id]);
 
   if (!team) return <div>Loading your team</div>;

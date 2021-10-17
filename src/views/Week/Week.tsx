@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { GetWeekQuery, GetWeekQueryVariables } from '../../API';
-import { callGraphQL } from '../../graphql/callGraphQl';
-import { getWeek } from '../../graphql/queries';
-import { mapGetWeekQuery } from '../../models/week';
+import { fetchWeek } from '../../models/week';
 import { Week as WeekModel } from '../../models';
 import { WeekDetails } from './Details';
 import { Week as WeekDiv, Title } from './Week.styles';
@@ -17,21 +14,10 @@ export const Week = ({ match }: RouteComponentProps<RouteParams>) => {
   const [week, setWeek] = useState<WeekModel>();
 
   useEffect(() => {
-    async function fetchData() {
-      const apiData = await callGraphQL<GetWeekQuery>(getWeek, {
-        variables: {
-          id,
-        } as GetWeekQueryVariables,
-      });
+    if (!id) return;
 
-      const fetchTeam = mapGetWeekQuery(apiData);
-
-      if (!fetchTeam) return;
-
-      setWeek(fetchTeam);
-    }
-
-    fetchData();
+    // eslint-disable-next-line no-console
+    fetchWeek(id).then((fetchedWeek) => setWeek(fetchedWeek)).catch((err) => console.error(err));
   }, [id]);
 
   if (!week) return <div>Loading your week</div>;

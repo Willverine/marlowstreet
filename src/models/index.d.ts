@@ -36,8 +36,12 @@ export declare class Game {
   readonly team2Score: number;
   readonly team1SpiritScore: number;
   readonly team2SpiritScore: number;
-  readonly team1mvp?: Player;
-  readonly team2mvp?: Player;
+  readonly team1SpiritComments?: string;
+  readonly team2SpiritComments?: string;
+  readonly team1FemaleMvp?: Player;
+  readonly team1MaleMvp?: Player;
+  readonly team2FemaleMvp?: Player;
+  readonly team2MaleMvp?: Player;
   readonly week?: Week;
   readonly createdAt?: string;
   readonly updatedAt?: string;
